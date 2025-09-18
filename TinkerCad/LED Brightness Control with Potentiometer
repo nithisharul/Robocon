@@ -1,0 +1,14 @@
+int led = 9;
+int potpin = A0;
+void setup()
+{
+  pinMode(led, OUTPUT);
+  pinMode(potpin,INPUT);
+}
+
+void loop()
+{
+ int potval = analogRead(potpin);
+ int brightness = map(potval,0,1024,0,255);
+ analogWrite(led,brightness);
+}
