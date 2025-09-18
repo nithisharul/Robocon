@@ -1,0 +1,62 @@
+int trigPin = 2;
+int echoPin = 3;
+
+int motor1Pin1 = 9;
+int motor1Pin2 = 10;
+int motor2Pin1 = 5;
+int motor2Pin2 = 4;
+
+int enable1Pin = 11;  
+int enable2Pin = 6;
+
+int duration;
+int distance;
+
+void setup() {
+  Serial.begin(9600);
+
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
+
+  pinMode(motor1Pin1, OUTPUT);
+  pinMode(motor1Pin2, OUTPUT);
+  pinMode(motor2Pin1, OUTPUT);
+  pinMode(motor2Pin2, OUTPUT);
+
+  pinMode(enable1Pin, OUTPUT);
+  pinMode(enable2Pin, OUTPUT);
+
+  
+  analogWrite(enable1Pin, 255);  
+  analogWrite(enable2Pin, 255);
+}
+
+void loop() {
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+
+  duration = pulseIn(echoPin, HIGH);
+  distance = duration * 0.034 / 2;
+ 
+  Serial.print("Distance: ");
+  Serial.println(distance);
+
+  if (distance >= 30 && distance <= 120) {
+    
+    digitalWrite(motor1Pin1, LOW);
+    digitalWrite(motor1Pin2, HIGH);
+    digitalWrite(motor2Pin1, LOW);
+    digitalWrite(motor2Pin2, HIGH);
+  } else {
+    
+    digitalWrite(motor1Pin1, HIGH);
+    digitalWrite(motor1Pin2, LOW);
+    digitalWrite(motor2Pin1, HIGH);
+    digitalWrite(motor2Pin2, LOW);
+  }
+
+  delay(100);
+}
