@@ -1,0 +1,38 @@
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
+
+LiquidCrystal_I2C lcd(0x20, 16, 2);
+
+int potPin = A0;
+int enPin = 9;   
+int in1 = 7;     
+int in2 = 8;     
+
+void setup() {
+  lcd.init();
+  lcd.backlight();
+
+  pinMode(enPin, OUTPUT);
+  pinMode(in1, OUTPUT);
+  pinMode(in2, OUTPUT);
+  pinMode(potPin, INPUT);
+
+  
+  digitalWrite(in1, LOW);
+  digitalWrite(in2, HIGH);
+}
+
+void loop() {
+  int potValue = analogRead(potPin);
+  int motorSpeed = map(potValue, 0, 1023, 0, 255);
+
+  analogWrite(enPin, motorSpeed);
+
+  
+  lcd.setCursor(0, 0);
+  lcd.print("Speed:");
+  lcd.setCursor(0, 1);
+  lcd.print(motorSpeed);
+
+  delay(200);
+}
