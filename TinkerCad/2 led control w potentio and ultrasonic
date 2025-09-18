@@ -1,0 +1,48 @@
+int led = 3;      
+int pot = A2;     
+int ledUlt = 5; 
+int trigPin = 9;  
+int echoPin = 10; 
+
+long duration;
+float distance;
+
+void setup() {
+  pinMode(led, OUTPUT);
+  pinMode(pot, INPUT);
+  pinMode(ledUlt, OUTPUT);
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
+  
+  digitalWrite(led, LOW);
+  digitalWrite(ledUlt, LOW);
+  
+  Serial.begin(9600);
+}
+
+void loop() {
+  
+  int potval = analogRead(pot);
+  int val = map(potval, 0, 1023, 0, 255);
+  analogWrite(led, val);
+
+  
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+
+  duration = pulseIn(echoPin, HIGH);
+  distance = duration * 0.034 / 2; 
+
+  int ultVal = map(distance, 0, 100, 255, 0);
+  
+  analogWrite(ledUlt, ultVal);
+
+ 
+  Serial.print("Pot value: "); Serial.print(val);
+  Serial.print(" | Distance: "); Serial.println(distance);
+
+  delay(50);
+}
