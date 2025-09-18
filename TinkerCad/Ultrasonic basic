@@ -1,0 +1,47 @@
+int trigPin = 9;
+int echoPin = 10;
+
+int duration;
+int distance;
+float temperature = 0; 
+
+void setup() {
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
+  Serial.begin(9600);
+  Serial.println("Enter temperature: ");
+}
+
+void loop() {
+  
+  if (Serial.available()) {   
+    temperature = Serial.parseFloat();   
+    Serial.print("Temp: ");
+    Serial.print(temperature);
+    Serial.println("C");
+  }
+
+  float speed = 0.0343 + (0.00006 * temperature);
+
+  
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+
+ 
+  duration = pulseIn(echoPin, HIGH);
+
+  
+  distance = duration * speed / 2;
+
+  
+  Serial.print("At ");
+  Serial.print(temperature);
+  Serial.print(" C, Distance: ");
+  Serial.print(distance);
+  Serial.println(" cm");
+
+  delay(1000); 
+}
