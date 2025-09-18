@@ -1,0 +1,16 @@
+int inp1 = 4;
+int inp2 = 3;
+int ena = 10;
+void setup()
+{
+  pinMode(inp1, LOW);
+  pinMode(inp2, HIGH);
+}
+
+void loop()
+{
+  digitalWrite(ena,HIGH);
+  analogWrite(ena, 127);
+  delay(1000); // Wait for 1000 millisecond(s)
+  
+}
