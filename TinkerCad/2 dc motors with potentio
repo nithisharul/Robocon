@@ -1,0 +1,32 @@
+int EN = 5;    
+int IN1 = 9;  
+int IN2 = 10;
+int pot = A4;
+
+void setup() {
+  pinMode(EN, OUTPUT);
+  pinMode(IN1, OUTPUT);
+  pinMode(IN2, OUTPUT);
+  pinMode(pot,INPUT);
+}
+
+void loop() {
+  
+  int potval=analogRead(A4);
+  int pwmval = map(potval,0,1023,0,255);
+  digitalWrite(IN1, LOW);
+  digitalWrite(IN2, HIGH);
+  analogWrite(EN, pwmval);  
+  delay(2000);
+
+  
+  analogWrite(EN, 0);
+  delay(1000);
+
+ 
+ 
+
+
+  analogWrite(EN, 0);
+  delay(1000);
+}
