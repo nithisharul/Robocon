@@ -1,0 +1,19 @@
+#include<Servo.h>
+int potpin = A4;
+int sigpin = 3;
+Servo s1;
+
+void setup()
+{
+  s1.attach(3);
+  pinMode(potpin, INPUT);
+}
+
+void loop()
+{
+ int potval = analogRead(potpin);
+ int angle = map(potval,0,1023,0,180);
+ s1.write(angle);
+ 
+                   
+}
